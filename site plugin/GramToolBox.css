@@ -23,6 +23,7 @@
       }
       .gram-marker-tick{ /* the arrow down the marker, is actually a rect div 45deg rotated */
         -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
         width: 10px;
         height: 10px;
         background: #fff;
@@ -53,19 +54,27 @@
 
       .gram-marker.drop-anim{
         -webkit-animation: drop-anim-key 600ms linear;
+        -moz-animation: drop-anim-key 600ms linear;
       }
       .gram-marker-shadow.drop-anim{
         -webkit-animation: drop-anim-shadow-key 600ms linear;
+        -moz-animation: drop-anim-shadow-key 600ms linear;
       }
       .gram-marker.hover.small{
         -webkit-transform-origin-x:center;
         -webkit-transform-origin-y:30px;
         -webkit-animation: tremble-anim-key 600ms linear;
+        -moz-transform-origin-x:center;
+        -moz-transform-origin-y:30px;
+        -moz-animation: tremble-anim-key 600ms linear;
       }
       .gram-marker-shadow.hover{
         -webkit-transform-origin-x:8px;
         -webkit-transform-origin-y:30px;
         -webkit-animation: tremble-anim-shadow-key 600ms linear;
+         -moz-transform-origin-x:8px;
+        -moz-transform-origin-y:30px;
+        -moz-animation: tremble-anim-shadow-key 600ms linear;
       }
       @-webkit-keyframes drop-anim-shadow-key
       {
@@ -104,6 +113,43 @@
 
       }
 
+      @-moz-keyframes drop-anim-shadow-key
+      {
+        0%   {-moz-transform: translate(0,-20px)  scale(0.2); }
+        45%  {-moz-transform: translate(0,0px)  scale(1); }
+        60%  {-moz-transform: translate(0,-5px)  scale(0.1); }
+        80%  {-moz-transform: translate(0,0px)  scale(1); }
+        90%  {-moz-transform: translate(0,-3px)  scale(0.1); }
+        100%  {-moz-transform: translate(0,0px) scale(1);  }
+      }
+      @-moz-keyframes drop-anim-key
+      {
+        0%   {-moz-transform: translate(0,-90px)  scale(0.2); }
+        45%  {-moz-transform: translate(0,0px)  scale(1); }
+        60%  {-moz-transform: translate(0,-20px)   }
+        80%  {-moz-transform: translate(0,0px)   }
+        90%  {-moz-transform: translate(0,-5px)   }
+        100%  {-moz-transform: translate(0,0px)   }
+      }
+      
+      @-moz-keyframes tremble-anim-key
+      {
+        0%   {-moz-transform: rotate(0); }
+        20%   {-moz-transform: rotate(10deg); }
+        40%   {-moz-transform: rotate(-10deg); }
+        80%   {-moz-transform: rotate(10deg); }
+        90%   {-moz-transform: rotate(0deg); }
+      }
+      @-moz-keyframes tremble-anim-shadow-key
+      {
+        0%   {-moz-transform: rotate(0); }
+        20%   {-moz-transform: rotate(2deg); }
+        40%   {-moz-transform: rotate(-0deg); }
+        80%   {-moz-transform: rotate(2deg); }
+        90%   {-moz-transform: rotate(0deg); }
+
+      }
+
       /**** gram list ****/
 
       .gram-list-element{
@@ -114,6 +160,7 @@
         display: inline-block;
         border:solid 1px #fff;
         -webkit-transition:top 0.5s,left 0.5s;
+        -moz-transition:top 0.5s,left 0.5s;
       }
       .gram-list-element img{
         height:50px;
@@ -128,12 +175,15 @@
       /**** elegant queue ***/
       .elegant-element {
         background: orange;
-        -webkit-transition:top 0.7s,left 0.7s;
+        -webkit-transition:top 0.5s,left 0.5s;
+        -moz-transition:top 0.7s,left 0.7s;
         position: absolute;
         -webkit-animation: flip-anim 1.1s ease-in-out;
+        -moz-animation: flip-anim 1.1s ease-in-out;
       }
       .elegant-element.transition-enable{
         -webkit-transition:none;
+        -moz-transition:none;
       }
       #elegant-list{
         width: 20%;
@@ -142,4 +192,9 @@
       {
         0%   {-webkit-transform: rotateY(180deg)  scale(0.5); }
         100%  {-webkit-transform: rotateY(0deg); }
+      }
+      @-moz-keyframes flip-anim /* Safari and Chrome */
+      {
+        0%   {-moz-transform: rotateY(180deg)  scale(0.5); }
+        100%  {-moz-transform: rotateY(0deg); }
       }
