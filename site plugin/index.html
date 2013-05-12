@@ -1,0 +1,84 @@
+<html>
+<body>
+
+	<style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map-container { 
+      	height: 500px;
+      	width: 500px;
+      }
+
+      .gram-marker{
+      	position:absolute;
+      	background:#888;
+      }
+      .gram-marker.small{
+      	
+      }
+      .gram-marker-photo{
+      	background:orange;
+      	border:solid 3px #888;
+      	/*box-shadow: 0 0 5px 2px #555;*/
+      	margin-left:auto;
+      	margin-right: auto;
+      	height:100px;
+      	min-width:100px;
+      }
+      .gram-marker.small  .gram-marker-photo{
+        height:20px;
+        min-width:20px;
+      }
+      .gram-marker.small  .gram-marker-label{
+        display:none;
+        background: #888;
+      }
+      .gram-marker-label{
+      	height:35px;
+      	z-index: 2;
+      }
+      .gram-marker.small  .gram-marker-tick{
+		top: 21px;
+		left: 30%;
+      }
+
+      .gram-marker-tick{
+      	-webkit-transform: rotate(45deg);
+		width: 10px;
+		height: 10px;
+		background: #888;
+		position: absolute;
+		top: 136px;
+		z-index: -2;
+		left: 48%;
+		/*border: solid 1px #DDD;*/
+      }
+
+    </style>
+
+	<div id="header">
+
+
+	</div>
+
+	<div id="map-container"></div>
+
+	<script type="text/javascript" src="jQuery/jquery.js"></script>
+	<script type="text/javascript" src="GramMap.js"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMU_Uuqf8WevUvNoRw3hONVjr8K_q5aIw&sensor=true" data-loaded="true" ></script>
+	<script type="text/javascript">
+
+		window.onload=function(){
+			
+			var gl=new GramListener();
+
+			var c=$('#map-container')
+			.gramMap({
+				'model':gl,
+			});
+		}
+
+	</script>
+
+</body>
+</html>
