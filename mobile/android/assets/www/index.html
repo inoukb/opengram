@@ -12,14 +12,18 @@
     </head>
     <body onload="initialize()">
         <div class="app">
-            <h1>Opengram</h1>
-            <div id="debug">
-                DEBUG :<br />
+            <header>
+                <img id="picture" src="#" />
+                <img id="logo" src="img/logo.png" />
+            </header>
+            <div class="buttons">
+                <button id="take_picture" onclick="captureImage()"></button>
             </div>
-            <img id="picture" src="#" width="300" height="300" />
-            <button id="take_picture" onclick="captureImage()">Prendre une photo</button>
-            <button id="save_picture" onclick="save_picture()">Sauvegarder une photo</button>
-            <button id="cancel" onclick="initialize()">Cancel</button>
+            <footer>
+                <p id="slogan">Find all tabac shop open !</p>
+                <button id="save_picture" onclick="save_picture()"></button>
+                <button id="cancel" onclick="initialize()"></button>
+            </footer>
             </form>
         </div>
     </body>
