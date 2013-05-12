@@ -5,8 +5,8 @@
       html { height: 100% }
       body { height: 100%; margin: 0; padding: 0 }
       #gram-map { 
-      	height: 200px;
-      	width: 500px;
+      	height: 500px;
+      	width: 600px;
         display: inline-block;;
       }
        #gram-list { 
@@ -25,24 +25,42 @@
       }
 
 
+      
+      /** style relative to the google map **/
       .gram-marker{
-      	position:absolute;
-      	background:#fff;
-        /*height:200px;*/
-      }
-      .gram-marker.small{
-      	/*height:20px;*/
+        position:absolute;
+        background:#fff;
       }
       .gram-marker-photo{
-      	background:orange;
-      	border:solid 3px #fff;
-      	/*box-shadow: 0 0 5px 2px #555;*/
-      	margin-left:auto;
-      	margin-right: auto;
-      	height:100px;
-      	min-width:100px;
-        /*-webkit-transition:height 500ms ease-in-out,width 500ms ease-in-out;*/
+        background:orange;
+        border:solid 3px #fff;
+        margin-left:auto;
+        margin-right: auto;
+        height:100px;
+        min-width:100px;
       }
+      .gram-marker-label{
+        height:35px;
+        z-index: 2;
+      }
+      .gram-marker-shadow{
+        width:41px;
+        height:27px;
+        background-image: url('ressources/shadow-small.png');
+      }
+      .gram-marker-tick{ /* the arrow down the marker, is actually a rect div 45deg rotated */
+        -webkit-transform: rotate(45deg);
+        width: 10px;
+        height: 10px;
+        background: #fff;
+        position: absolute;
+        top: 136px;
+        z-index: -2;
+        left: 48%;
+      }
+
+
+
       .gram-marker.small  .gram-marker-photo{
         height:20px;
         min-width:20px;
@@ -51,31 +69,13 @@
         display:none;
         background: #fff;
       }
-      .gram-marker-label{
-      	height:35px;
-      	z-index: 2;
-      }
+      
       .gram-marker.small  .gram-marker-tick{
-		top: 21px;
-		left: 30%;
-      }
-      .gram-marker-shadow{
-      	width:41px;
-      	height:27px;
-      	background-image: url('ressources/shadow-small.png');
+    		top: 21px;
+    		left: 30%;
       }
 
-      .gram-marker-tick{
-      	-webkit-transform: rotate(45deg);
-    		width: 10px;
-    		height: 10px;
-    		background: #fff;
-    		position: absolute;
-    		top: 136px;
-    		z-index: -2;
-    		left: 48%;
-    		/*border: solid 1px #DDD;*/
-      }
+      
 
 
       .gram-marker.drop-anim{
@@ -142,15 +142,6 @@
         border:solid 1px #fff;
         -webkit-transition:top 0.5s,left 0.5s;
       }
-      .gram-list-element.flip{
-        -webkit-animation: flip-anim 1s ease-in-out;
-        background: #333;
-      }
-      @-webkit-keyframes flip-anim /* Safari and Chrome */
-      {
-        0%   {-webkit-transform: rotateY(180deg)  scale(0.5); }
-        100%  {-webkit-transform: rotateY(0deg); }
-      }
       .gram-list-element img{
         height:50px;
         min-width: 50px;
@@ -174,6 +165,11 @@
       #elegant-list{
         width: 20%;
       }
+      @-webkit-keyframes flip-anim /* Safari and Chrome */
+      {
+        0%   {-webkit-transform: rotateY(180deg)  scale(0.5); }
+        100%  {-webkit-transform: rotateY(0deg); }
+      }
 
     </style>
 
@@ -187,22 +183,27 @@
 	<div id="elegant-list"></div>
 
 	<script type="text/javascript" src="jQuery/jquery.js"></script>
-	<script type="text/javascript" src="GramMap.js"></script>
+	<script type="text/javascript" src="GramToolBox.js"></script>
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMU_Uuqf8WevUvNoRw3hONVjr8K_q5aIw&sensor=true" data-loaded="true" ></script>
 	<script type="text/javascript">
     var del;
 		window.onload=function(){
 			
-			var gl=new GramListener();
+			var gl=new GramListener({
+        fake:true,
+        maxElement:30,
+      });
 
 			var c=$('#gram-map')
 			.gramMap({
-				'model':gl,
+				'gramListener':gl,
+        maxElement:15,
 			});
 
       var c=$('#gram-list')
       .gramList({
         'gramListener':gl,
+        maxElement:5000,
       });
 
       var el=$('#elegant-list')
