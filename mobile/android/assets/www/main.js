@@ -1,24 +1,27 @@
 
 function initialize() {
-    $('#picture').hide();
     $('#save_picture').hide();
     $('#cancel').hide();
     $('#take_picture').show();
+    $('#logo').show();
+    $('#slogan').show();
+    $('body').css('background-image', "url('img/background.jpg')");
 }
   
 function captureImage() {
     navigator.device.capture.captureImage(
-            function(files){
-            $('#picture').attr('src', files[0].fullPath);
-            $('#picture').show();
+        function(files){
+            $('body').css('background-image', "url('" + files[0].fullPath + "')");
             $('#save_picture').show();
             $('#cancel').show();
             $('#take_picture').hide();
+            $('#logo').hide();
+            $('#slogan').hide();
             $('#debug').append("Image : " + files[0].fullPath + "<br />");
-            },
-            function(){
+        },
+        function(){
             console.log('Error');
-            }, {limit: 1});
+        }, {limit: 1});
 }
 
 function affichePosition(pos) {
@@ -30,25 +33,26 @@ function affichePosition(pos) {
     var server = "http://opengram.appspot.com/receive";
     var name = $('#picture').attr('src');
     var win = function(r) {
-	console.log("Code = " + r.responseCode);
-	console.log("Response = " + r.response);
-	console.log("Sent = " + r.bytesSent);
+        alert("Success");
+	    console.log("Code = " + r.responseCode);
+	    console.log("Response = " + r.response);
+	    console.log("Sent = " + r.bytesSent);
     }
     var fail = function(error) {
-	alert("error");
-	switch (error.code) {
-	case FileTransferError.FILE_NOT_FOUND_ERR:
+	    alert("Error");
+	    switch (error.code) {
+    	case FileTransferError.FILE_NOT_FOUND_ERR:
             alert("Photo file not found");
-            break;
-	case FileTransferError.INVALID_URL_ERR:
-	    alert("Bad Photo URL");
+        break;
+	    case FileTransferError.INVALID_URL_ERR:
+	        alert("Bad Photo URL");
 	    break;
-	case FileTransferError.CONNECTION_ERR:
-	    alert("Connection error");
+	    case FileTransferError.CONNECTION_ERR:
+	        alert("Connection error");
 	    break;
-	}
-	console.log("upload error source " + error.source);
-	console.log("upload error target " + error.target);
+	    }
+	    console.log("upload error source " + error.source);
+	    console.log("upload error target " + error.target);
     }
     options.fileKey = "file";
     options.fileName = name.substr(name.lastIndexOf('/') + 1);
