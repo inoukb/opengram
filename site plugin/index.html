@@ -4,26 +4,44 @@
 	<style type="text/css">
       html { height: 100% }
       body { height: 100%; margin: 0; padding: 0 }
-      #map-container { 
-      	height: 500px;
+      #gram-map { 
+      	height: 200px;
       	width: 500px;
+        display: inline-block;;
       }
+       #gram-list { 
+        height: 200px;
+        width: 30%;
+        display: inline-block;
+        vertical-align: top;
+
+      }
+       #gram-list2 { 
+        height: 200px;
+        width: 999px;
+        display: inline-block;
+        vertical-align: top;
+
+      }
+
 
       .gram-marker{
       	position:absolute;
-      	background:#888;
+      	background:#fff;
+        /*height:200px;*/
       }
       .gram-marker.small{
-      	
+      	/*height:20px;*/
       }
       .gram-marker-photo{
       	background:orange;
-      	border:solid 3px #888;
+      	border:solid 3px #fff;
       	/*box-shadow: 0 0 5px 2px #555;*/
       	margin-left:auto;
       	margin-right: auto;
       	height:100px;
       	min-width:100px;
+        /*-webkit-transition:height 500ms ease-in-out,width 500ms ease-in-out;*/
       }
       .gram-marker.small  .gram-marker-photo{
         height:20px;
@@ -31,7 +49,7 @@
       }
       .gram-marker.small  .gram-marker-label{
         display:none;
-        background: #888;
+        background: #fff;
       }
       .gram-marker-label{
       	height:35px;
@@ -41,17 +59,120 @@
 		top: 21px;
 		left: 30%;
       }
+      .gram-marker-shadow{
+      	width:41px;
+      	height:27px;
+      	background-image: url('ressources/shadow-small.png');
+      }
 
       .gram-marker-tick{
       	-webkit-transform: rotate(45deg);
-		width: 10px;
-		height: 10px;
-		background: #888;
-		position: absolute;
-		top: 136px;
-		z-index: -2;
-		left: 48%;
-		/*border: solid 1px #DDD;*/
+    		width: 10px;
+    		height: 10px;
+    		background: #fff;
+    		position: absolute;
+    		top: 136px;
+    		z-index: -2;
+    		left: 48%;
+    		/*border: solid 1px #DDD;*/
+      }
+
+
+      .gram-marker.drop-anim{
+        -webkit-animation: drop-anim-key 600ms linear;
+      }
+      .gram-marker-shadow.drop-anim{
+        -webkit-animation: drop-anim-shadow-key 600ms linear;
+      }
+      .gram-marker.hover.small{
+        -webkit-transform-origin-x:center;
+        -webkit-transform-origin-y:30px;
+        -webkit-animation: tremble-anim-key 600ms linear;
+      }
+      .gram-marker-shadow.hover{
+        -webkit-transform-origin-x:8px;
+        -webkit-transform-origin-y:30px;
+        -webkit-animation: tremble-anim-shadow-key 600ms linear;
+      }
+      @-webkit-keyframes drop-anim-shadow-key
+      {
+        0%   {-webkit-transform: translate(0,-20px)  scale(0.2); }
+        45%  {-webkit-transform: translate(0,0px)  scale(1); }
+        60%  {-webkit-transform: translate(0,-5px)  scale(0.1); }
+        80%  {-webkit-transform: translate(0,0px)  scale(1); }
+        90%  {-webkit-transform: translate(0,-3px)  scale(0.1); }
+        100%  {-webkit-transform: translate(0,0px) scale(1);  }
+      }
+      @-webkit-keyframes drop-anim-key
+      {
+        0%   {-webkit-transform: translate(0,-90px)  scale(0.2); }
+        45%  {-webkit-transform: translate(0,0px)  scale(1); }
+        60%  {-webkit-transform: translate(0,-20px)   }
+        80%  {-webkit-transform: translate(0,0px)   }
+        90%  {-webkit-transform: translate(0,-5px)   }
+        100%  {-webkit-transform: translate(0,0px)   }
+      }
+      
+      @-webkit-keyframes tremble-anim-key
+      {
+        0%   {-webkit-transform: rotate(0); }
+        20%   {-webkit-transform: rotate(10deg); }
+        40%   {-webkit-transform: rotate(-10deg); }
+        80%   {-webkit-transform: rotate(10deg); }
+        90%   {-webkit-transform: rotate(0deg); }
+      }
+      @-webkit-keyframes tremble-anim-shadow-key
+      {
+        0%   {-webkit-transform: rotate(0); }
+        20%   {-webkit-transform: rotate(2deg); }
+        40%   {-webkit-transform: rotate(-0deg); }
+        80%   {-webkit-transform: rotate(2deg); }
+        90%   {-webkit-transform: rotate(0deg); }
+
+      }
+
+      /**** gram list ****/
+
+      .gram-list-element{
+        width:65px;
+        height:65px;
+        padding:5px;
+        background: #fff;
+        display: inline-block;
+        border:solid 1px #fff;
+        -webkit-transition:top 0.5s,left 0.5s;
+      }
+      .gram-list-element.flip{
+        -webkit-animation: flip-anim 1s ease-in-out;
+        background: #333;
+      }
+      @-webkit-keyframes flip-anim /* Safari and Chrome */
+      {
+        0%   {-webkit-transform: rotateY(180deg)  scale(0.5); }
+        100%  {-webkit-transform: rotateY(0deg); }
+      }
+      .gram-list-element img{
+        height:50px;
+        min-width: 50px;
+        max-width: 60px;
+        margin-left: auto;
+        margin-right:auto;
+        background:orange;
+      }
+
+
+      /**** elegant queue ***/
+      .elegant-element {
+        background: orange;
+        -webkit-transition:top 0.3s,left 0.3s;
+        position: absolute;
+        -webkit-animation: flip-anim 0.5s ease-in-out;
+      }
+      .elegant-element.transition-enable{
+        -webkit-transition:none;
+      }
+      #elegant-list{
+        width: 20%;
       }
 
     </style>
@@ -61,21 +182,35 @@
 
 	</div>
 
-	<div id="map-container"></div>
+  <div id="gram-map"></div>
+  <div id="gram-list"></div>
+	<div id="elegant-list"></div>
 
 	<script type="text/javascript" src="jQuery/jquery.js"></script>
 	<script type="text/javascript" src="GramMap.js"></script>
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMU_Uuqf8WevUvNoRw3hONVjr8K_q5aIw&sensor=true" data-loaded="true" ></script>
 	<script type="text/javascript">
-
+    var del;
 		window.onload=function(){
 			
 			var gl=new GramListener();
 
-			var c=$('#map-container')
+			var c=$('#gram-map')
 			.gramMap({
 				'model':gl,
 			});
+
+      var c=$('#gram-list')
+      .gramList({
+        'gramListener':gl,
+      });
+
+      var el=$('#elegant-list')
+      .elegantContainer();
+
+      del=el.data('elegantContainer');
+
+
 		}
 
 	</script>
