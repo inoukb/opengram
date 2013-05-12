@@ -12,15 +12,16 @@
     </head>
     <body onload="initialize()">
         <div class="app">
+            <img id="picture" src="#" />
             <header>
-                <img id="picture" src="#" />
                 <img id="logo" src="img/logo.png" />
             </header>
             <div class="buttons">
-                <button id="take_picture" onclick="captureImage()"></button>
+                <button id="take_picture" onclick="captureImage()"></button><br />
             </div>
             <footer>
                 <p id="slogan">Find all tabac shop open !</p>
+                <input id="comment" type="text" />
                 <button id="save_picture" onclick="save_picture()"></button>
                 <button id="cancel" onclick="initialize()"></button>
             </footer>

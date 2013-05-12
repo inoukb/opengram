@@ -2,10 +2,11 @@
 function initialize() {
     $('#save_picture').hide();
     $('#cancel').hide();
+    $('#picture').hide();
+    $('#comment').hide();
     $('#take_picture').show();
     $('#logo').show();
     $('#slogan').show();
-    $('#picture').hide();
     $('body').css('background-image', "url('img/background.jpg')");
 }
   
@@ -16,10 +17,11 @@ function captureImage() {
             $('#picture').attr('src', files[0].fullPath);
             $('#save_picture').show();
             $('#cancel').show();
+            $('#comment').show();
+            $('#picture').show();
             $('#take_picture').hide();
             $('#logo').hide();
             $('#slogan').hide();
-            $('#debug').append("Image : " + files[0].fullPath + "<br />");
         },
         function(){
             console.log('Error');
@@ -27,8 +29,7 @@ function captureImage() {
 }
 
 function affichePosition(pos) {
-    $('#debug').append('AFFICHE POS : ' + pos.coords.latitude + ' / ' + pos.coords.longitude + '<br />');
-    console.log('AFFICHE POS<br />');
+    console.log('Opengram : Upload picture.');
     var options = new FileUploadOptions();
     var ft = new FileTransfer();
     var params = new Object();
@@ -63,29 +64,21 @@ function affichePosition(pos) {
     params.location = pos.coords.latitude + "," + pos.coords.longitude;
     params.datetime = pos.timestamp;
     params.phone_id = device.uuid;
-    params.comment = '';
+    params.comment = $('#comment').value();
     options.params = params;
-    $('#debug').html('filekey = ' + options.fileKey + '<br />' + 
-	'filename = ' + options.fileName + '<br />' + 
-	'mimeType = ' + options.mimeType + '<br />' +
-	'location = ' + params.location + '<br />' +
-	'datetime = ' + params.datetime + '<br />' +
-	'phone_id = ' + params.phone_id + '<br />' +
-	'comment = ' + params.comment + '<br />');	
     ft.upload(name, server, win, fail, options);
 }
 
 function errorPosition(error) {
-    $('#debug').append('ERROR POS<br />');
-    console.log('ERROR POS<br />');
+    console.log('Opengram : Error position.');
 }
 
 function save_picture() {
     console.log('Image : ' + $('#picture').attr('src'));
     if (navigator.geolocation) {
-        $('#debug').append('YESSS<br />');
         navigator.geolocation.getCurrentPosition(affichePosition, errorPosition);
     }
-    else
-        $('#debug').append('NOOOO<br />');
+    else {
+        alert('Error : Geolocation disabled.');
+    }
 }
