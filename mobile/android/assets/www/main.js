@@ -5,6 +5,7 @@ function initialize() {
     $('#take_picture').show();
     $('#logo').show();
     $('#slogan').show();
+    $('#picture').hide();
     $('body').css('background-image', "url('img/background.jpg')");
 }
   
@@ -12,6 +13,7 @@ function captureImage() {
     navigator.device.capture.captureImage(
         function(files){
             $('body').css('background-image', "url('" + files[0].fullPath + "')");
+            $('#picture').attr('src', files[0].fullPath);
             $('#save_picture').show();
             $('#cancel').show();
             $('#take_picture').hide();
