@@ -1,0 +1,144 @@
+/** style relative to the google map **/
+      .gram-marker{
+        position:absolute;
+        background:#fff;
+      }
+      .gram-marker-photo{
+        background:orange;
+        border:solid 3px #fff;
+        margin-left:auto;
+        margin-right: auto;
+        height:100px;
+        min-width:100px;
+      }
+      .gram-marker-label{
+        height:35px;
+        z-index: 2;
+      }
+      .gram-marker-shadow{
+        width:41px;
+        height:27px;
+        background-image: url('ressources/shadow-small.png');
+      }
+      .gram-marker-tick{ /* the arrow down the marker, is actually a rect div 45deg rotated */
+        -webkit-transform: rotate(45deg);
+        width: 10px;
+        height: 10px;
+        background: #fff;
+        position: absolute;
+        top: 136px;
+        z-index: -2;
+        left: 48%;
+      }
+
+
+
+      .gram-marker.small  .gram-marker-photo{
+        height:20px;
+        min-width:20px;
+      }
+      .gram-marker.small  .gram-marker-label{
+        display:none;
+        background: #fff;
+      }
+      
+      .gram-marker.small  .gram-marker-tick{
+    		top: 21px;
+    		left: 30%;
+      }
+
+      
+
+
+      .gram-marker.drop-anim{
+        -webkit-animation: drop-anim-key 600ms linear;
+      }
+      .gram-marker-shadow.drop-anim{
+        -webkit-animation: drop-anim-shadow-key 600ms linear;
+      }
+      .gram-marker.hover.small{
+        -webkit-transform-origin-x:center;
+        -webkit-transform-origin-y:30px;
+        -webkit-animation: tremble-anim-key 600ms linear;
+      }
+      .gram-marker-shadow.hover{
+        -webkit-transform-origin-x:8px;
+        -webkit-transform-origin-y:30px;
+        -webkit-animation: tremble-anim-shadow-key 600ms linear;
+      }
+      @-webkit-keyframes drop-anim-shadow-key
+      {
+        0%   {-webkit-transform: translate(0,-20px)  scale(0.2); }
+        45%  {-webkit-transform: translate(0,0px)  scale(1); }
+        60%  {-webkit-transform: translate(0,-5px)  scale(0.1); }
+        80%  {-webkit-transform: translate(0,0px)  scale(1); }
+        90%  {-webkit-transform: translate(0,-3px)  scale(0.1); }
+        100%  {-webkit-transform: translate(0,0px) scale(1);  }
+      }
+      @-webkit-keyframes drop-anim-key
+      {
+        0%   {-webkit-transform: translate(0,-90px)  scale(0.2); }
+        45%  {-webkit-transform: translate(0,0px)  scale(1); }
+        60%  {-webkit-transform: translate(0,-20px)   }
+        80%  {-webkit-transform: translate(0,0px)   }
+        90%  {-webkit-transform: translate(0,-5px)   }
+        100%  {-webkit-transform: translate(0,0px)   }
+      }
+      
+      @-webkit-keyframes tremble-anim-key
+      {
+        0%   {-webkit-transform: rotate(0); }
+        20%   {-webkit-transform: rotate(10deg); }
+        40%   {-webkit-transform: rotate(-10deg); }
+        80%   {-webkit-transform: rotate(10deg); }
+        90%   {-webkit-transform: rotate(0deg); }
+      }
+      @-webkit-keyframes tremble-anim-shadow-key
+      {
+        0%   {-webkit-transform: rotate(0); }
+        20%   {-webkit-transform: rotate(2deg); }
+        40%   {-webkit-transform: rotate(-0deg); }
+        80%   {-webkit-transform: rotate(2deg); }
+        90%   {-webkit-transform: rotate(0deg); }
+
+      }
+
+      /**** gram list ****/
+
+      .gram-list-element{
+        width:65px;
+        height:65px;
+        padding:5px;
+        background: #fff;
+        display: inline-block;
+        border:solid 1px #fff;
+        -webkit-transition:top 0.5s,left 0.5s;
+      }
+      .gram-list-element img{
+        height:50px;
+        min-width: 50px;
+        max-width: 60px;
+        margin-left: auto;
+        margin-right:auto;
+        background:orange;
+      }
+
+
+      /**** elegant queue ***/
+      .elegant-element {
+        background: orange;
+        -webkit-transition:top 0.7s,left 0.7s;
+        position: absolute;
+        -webkit-animation: flip-anim 0.8s ease-in-out;
+      }
+      .elegant-element.transition-enable{
+        -webkit-transition:none;
+      }
+      #elegant-list{
+        width: 20%;
+      }
+      @-webkit-keyframes flip-anim /* Safari and Chrome */
+      {
+        0%   {-webkit-transform: rotateY(180deg)  scale(0.5); }
+        100%  {-webkit-transform: rotateY(0deg); }
+      }
