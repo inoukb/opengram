@@ -17,7 +17,6 @@ body {
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     text-transform:uppercase;
     font-size:18px;
-    background-size: 50%;
 }
 
 /* Window */
@@ -41,7 +40,7 @@ header {
 
 /* Buttons */
 div.buttons {
-    margin: 20px 0;
+    margin: 0;
 }
 
 button {
@@ -56,6 +55,10 @@ button {
 
 #take_picture:focus, #take_picture:hover {
     background: url('../img/take_press.png');
+}
+
+#takeapicture {
+    width:50%;
 }
 
 #save_picture {
@@ -93,4 +96,5 @@ footer {
     bottom:0;
     font-size: 24px;
     padding: 50px 0px;
+    text-align: center;
 }
