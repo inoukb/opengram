@@ -1,0 +1,65 @@
+<html>
+<body>
+  <link rel="stylesheet" type="text/css" href="GramToolBox.css">
+	<style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #gram-map { 
+      	height: 100%;
+      	width: 100%;
+        display: inline-block;;
+      }
+       #gram-list { 
+        width: 40%;
+        display: inline-block;
+        vertical-align: top;
+      }
+      
+      #separator{
+        
+        
+      }
+      
+      
+
+    </style>
+
+	<div id="header">
+	</div>
+
+  <div id="gram-map"></div>
+  <div id="separator"></div>
+  <div id="gram-list"></div>
+
+	<script type="text/javascript" src="jQuery/jquery.js"></script>
+  <script type="text/javascript" src="GramToolBox.js"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMU_Uuqf8WevUvNoRw3hONVjr8K_q5aIw&sensor=true" data-loaded="true" ></script>-
+	<script type="text/javascript">
+
+		window.onload=function(){
+			
+			var gl=new GramListener({
+        maxElement:30,
+        //url:'http://opengram.appspot.com'
+      });
+
+			var c=$('#gram-map')
+			.gramMap({
+				'gramListener':gl,
+        maxElement:15,
+			});
+
+      var c=$('#gram-list')
+      .gramList({
+        'gramListener':gl,
+        'maxElement':5000,
+      });
+      
+      
+
+		}
+
+	</script>
+
+</body>
+</html>

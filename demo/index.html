@@ -1,0 +1,171 @@
+<html>
+<body>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="GramToolBox.css">
+	<style type="text/css">
+      html { 
+        height: 100%;
+        background:  -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.3) 100%) , url('ressources/background_tapisserie.jpg');
+       
+        }
+      body { height: 100%; margin: 0; padding: 0 }
+
+      #header{
+        position:absolute;
+        font-size: 50px;
+        z-index:9999999;
+        left: 15%;
+        color:#d61c60;
+        text-shadow: 1px 2px 3px rgba(50 , 50, 50, 0.5);
+        font-family: calibri, Arial;
+      }
+       #header2{
+        font-style: italic;
+        position:absolute;
+        font-size:18px;
+        z-index:9999999;
+        left: 5%;
+        top: 7%;
+        color:#333;
+        text-shadow: 1px 2px 3px rgba(250 , 250, 250, 0.9);
+        font-family: calibri, Arial;
+      }
+
+      #footer{
+        position:absolute;
+        background: #d61c60;
+        z-index:-9999999;
+        bottom: -30px;
+        left:-10%;
+        height:100px;
+        width:120%;
+        box-shadow: 0 0 10px 10px #555;
+        position: fixed;
+        color:#888;
+        padding:30px;
+        font-size: 10px;
+        font-style: italic;
+        background: -webkit-linear-gradient(top, rgba(252,146,240,0.8) 0%,rgba(214,28,96,0.8) 100%); /* Chrome10+,Safari5.1+ */
+      }
+
+      #last-add{
+        position:absolute;
+        font-size: 50px;
+        z-index:9999999;
+        left: 5%;
+        top:52%;
+         text-shadow: 1px 2px 3px rgba(50 , 50, 50, 0.5);
+        font-family: calibri, Arial;
+      }
+
+      #gram-map { 
+      	height: 50%;
+      	width: 100%;
+        display: inline-block;;
+      }
+       #gram-list { 
+        width: 70%;
+        display: inline-block;
+        vertical-align: top;
+        margin-left: 15%
+
+      }
+      
+       #separator { 
+        border-top: solid 2px #d61c60;
+        box-shadow: 0 8px 10px 3px #555;
+        width: 40%;
+        margin-left: 30%;
+        margin-bottom:25px;
+        margin-top:30px;
+      }
+
+      .gram-list-element{
+        width:120px;
+        height:120px;
+        background: none;
+        border:none;
+      }
+
+      .gram-list-element img{
+        height : 100px;
+        max-width: 115px;
+        border : solid 5px #fff;
+        box-shadow: 2px 3px 5px 3px #333;
+      }
+      
+
+    </style>
+
+	<div id="header">
+    Bon appétit!
+	</div>
+  <div id="header2">
+    Comme eux, partagez vos meilleurs réalisations culinaires
+  </div>
+
+  <div id="gram-map"></div>
+  <div id="separator"></div>
+
+   <div id="last-add">Derniers ajouts ..</div>
+
+  <div id="gram-list"></div>
+  
+
+ <div id="footer">
+  images from flickr
+ </div>
+
+  <div id="gram-list"></div>
+
+	<script type="text/javascript" src="jQuery/jquery.js"></script>
+  <script type="text/javascript" src="GramToolBox.js"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMU_Uuqf8WevUvNoRw3hONVjr8K_q5aIw&sensor=true" data-loaded="true" ></script>-
+	<script type="text/javascript">
+
+		window.onload=function(){
+			
+			var gl=new GramListener({
+        maxElement:20,
+        //url:'http://opengram.appspot.com'
+        fakeImages:[
+          "http://farm6.staticflickr.com/5101/5570907915_cc756b843f.jpg",
+          "http://farm6.staticflickr.com/5139/5570907695_a26695e8b0.jpg",
+          "http://farm6.staticflickr.com/5300/5571495408_1a4eff058f.jpg",
+          "http://farm6.staticflickr.com/5225/5571495514_fb0bc4951b.jpg",
+          "http://farm6.staticflickr.com/5020/5571494850_3d2b9f2270.jpg",
+          "http://farm6.staticflickr.com/5096/5570908019_1c958ae0b9.jpg",
+          "http://farm6.staticflickr.com/5126/5349283251_dcf1918930.jpg",
+          "http://farm6.staticflickr.com/5041/5349283479_d85ac38826.jpg",
+          "http://farm6.staticflickr.com/5049/5349893874_5ccd5c20da.jpg",
+          "http://farm6.staticflickr.com/5284/5349893914_2c5d2270ee.jpg",
+          "http://farm6.staticflickr.com/5127/5349893794_f4ca776f8c.jpg",
+          "http://farm9.staticflickr.com/8463/8110122610_59ee6bc199.jpg",
+          "http://farm8.staticflickr.com/7329/8731843324_2a28bcedd2.jpg",
+          "http://farm8.staticflickr.com/7327/8730729465_e4d489aaca.jpg",
+          "http://farm8.staticflickr.com/7350/8730717867_9c94646e98.jpg",
+          "http://farm8.staticflickr.com/7387/8730675001_5f9da85135.jpg",
+
+        ]
+      });
+
+			var c=$('#gram-map')
+			.gramMap({
+				'gramListener':gl,
+        maxElement:15,
+			});
+
+      var c=$('#gram-list')
+      .gramList({
+        'gramListener':gl,
+        'maxElement':25,
+      });
+      
+      
+
+		}
+
+	</script>
+
+</body>
+</html>
