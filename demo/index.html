@@ -2,10 +2,11 @@
 <body>
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="GramToolBox.css">
+  <link href='http://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps' rel='stylesheet' type='text/css'>
 	<style type="text/css">
       html { 
         height: 100%;
-        background:  -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.3) 100%) , url('ressources/background_tapisserie.jpg');
+        background:  -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,0.85) 0%,rgba(255,255,255,0.75) 100%) , url('ressources/background_tapisserie.jpg');
        
         }
       body { height: 100%; margin: 0; padding: 0 }
@@ -17,7 +18,7 @@
         left: 15%;
         color:#d61c60;
         text-shadow: 1px 2px 3px rgba(50 , 50, 50, 0.5);
-        font-family: calibri, Arial;
+        font-family: 'Oleo Script Swash Caps' , calibri, Arial;
       }
        #header2{
         font-style: italic;
@@ -28,7 +29,7 @@
         top: 7%;
         color:#333;
         text-shadow: 1px 2px 3px rgba(250 , 250, 250, 0.9);
-        font-family: calibri, Arial;
+        font-family: 'Oleo Script Swash Caps' , calibri, Arial;
       }
 
       #footer{
@@ -55,7 +56,7 @@
         left: 5%;
         top:52%;
          text-shadow: 1px 2px 3px rgba(50 , 50, 50, 0.5);
-        font-family: calibri, Arial;
+        font-family: 'Oleo Script Swash Caps' , calibri, Arial;
       }
 
       #gram-map { 
@@ -111,10 +112,10 @@
 
   <div id="gram-list"></div>
   
-
+  <!--
  <div id="footer">
   images from flickr
- </div>
+ </div>-->
 
   <div id="gram-list"></div>
 
@@ -158,7 +159,7 @@
       var c=$('#gram-list')
       .gramList({
         'gramListener':gl,
-        'maxElement':25,
+        'maxElement':18,
       });
       
       
