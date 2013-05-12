@@ -14,6 +14,7 @@
       .gram-marker-label{
         height:35px;
         z-index: 2;
+        padding:5px;
       }
       .gram-marker-shadow{
         width:41px;
@@ -129,7 +130,7 @@
         background: orange;
         -webkit-transition:top 0.7s,left 0.7s;
         position: absolute;
-        -webkit-animation: flip-anim 0.8s ease-in-out;
+        -webkit-animation: flip-anim 1.1s ease-in-out;
       }
       .elegant-element.transition-enable{
         -webkit-transition:none;

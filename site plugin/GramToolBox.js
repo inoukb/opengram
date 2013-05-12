@@ -73,10 +73,17 @@ GramListener.prototype={
 	//max number of element hold in the store
 	maxElement:null,
 
+	url:null,
+
+	pollTime:null,
+
+
 	init:function(options){
 		options=options||{};
 		this.maxElement=options.maxElement||20;
-		var fake=options.fake;
+		this.pollTime=options.pollTime||1000;
+		this.url=options.url;
+		var fake=options.fake||this.url==null; // if no url is provided fall back to fake listener
 
 		this._listeners={};
 
@@ -84,12 +91,12 @@ GramListener.prototype={
 
 		
 		if(fake){
-			this.initFakeAdd();
+			this.initFakeAdd(options);
 			return;
+		}else{
+			this.picAll();
+			this.pollLoop();
 		}
-
-
-		
 
 	},
 
@@ -98,7 +105,12 @@ GramListener.prototype={
 	 * @Description is more or less the same behavior we expect to have with actual server
 	 */
 	initFakeAdd:function(options){
-		var imagesPool=[	// some random pics from the deep internet ...
+
+		options=options||{};
+
+		var imagesPool=options.fakeImages
+		||
+		[	// some random pics from the deep internet ...
 			"http://www.allisonandbusby.com/info/wp-content/uploads/2010/05/a-happy-martin-edwards.jpg", //happy martin!
 			"http://svtjosse.perso.sfr.fr/activites/comportementhtml/marmotte.jpg",
 			"http://users.belgacom.net/marmotte/WJ_Marm02_fichiers/image004.jpg",
@@ -117,9 +129,13 @@ GramListener.prototype={
 			return 6.18 + ( Math.random() - 0.5 ) * 0.1;
 		};
 
+		var index=0;
+
 		var generateFakeElement=function(){
 
-			var imageUrl=imagesPool[ Math.floor( Math.random()*imagesPool.length ) ];
+			index=( index+1 )%imagesPool.length;
+
+			var imageUrl=imagesPool[ index ];
 			var lat=getRandomLat();
 			var lng=getRandomLng();
 
@@ -141,12 +157,56 @@ GramListener.prototype={
 			window.setTimeout( 
 				$.proxy(generateFakeElement,this) , 
 				this.elements.length < this.maxElement*0.5 ? 		// is the store already well filled
-				100 : 												// nop, get another element soon
-				Math.floor( Math.random() * 3000 + 3000 )			// yes, get another element in few seconds
+				300 : 												// nop, get another element soon
+				Math.floor( Math.random() * 5000 + 1000 )			// yes, get another element in few seconds
 			);
 		};
 
 		generateFakeElement.call(this);
+
+	},
+	pollLoop:function(){
+
+		var lasts=1;
+
+		var success=function(response){
+
+		};
+		var error=function(response){
+
+		};
+		var hhr=$.ajax(
+			this.url+"/get?nb_pic="+lasts,
+			{
+				type:'GET',
+				dataType:'jsonp',
+				success:success,
+				error:error,
+				timeout:5000,
+			}
+		);
+
+		window.setTimeout( $.proxy(this.pollLoop,this),this.pollTime );
+	},
+	picAll:function(){
+		var success=function(response){
+
+		};
+		var error=function(response){
+
+		};
+		var hhr=$.ajax(
+			this.url+"/get?nb_pic="+this.maxElement,
+			{
+				type:'GET',
+				dataType:'jsonp',
+				success:success,
+				error:error,
+				timeout:5000,
+			}
+		);
+	},
+	picLast:function(){
 
 	},
 	addElement:function(gramElement){
@@ -371,6 +431,8 @@ GramListener.prototype={
 		},
 
 		onRemove : function() {
+		  if(this.isfocus)
+		  	google.maps.event.removeListener( this.keylistener );
 		  this.$el.detach();
 		  this.$eventLayer.detach();
 		  this.$shadow.detach();
@@ -392,7 +454,7 @@ GramListener.prototype={
 		var initMap=function(){
 	        this.map = new google.maps.Map( $el.get(0) , {
 	 		  'center': new google.maps.LatLng(48.685, 6.18),
-	          'zoom': 8,
+	          'zoom': 12,
 	          'mapTypeId': google.maps.MapTypeId.ROADMAP
 	        });
 	        if( this.gramListener ){
