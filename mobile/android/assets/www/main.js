@@ -64,7 +64,7 @@ function affichePosition(pos) {
     params.location = pos.coords.latitude + "," + pos.coords.longitude;
     params.datetime = pos.timestamp;
     params.phone_id = device.uuid;
-    params.comment = $('#comment').value();
+    params.comment = "A SWNCY";
     options.params = params;
     ft.upload(name, server, win, fail, options);
 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+<EditText
+    android:id="@+id/comment"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    />
+<Button
+    android:id="@+id/save"
+    android:enabled="false"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:text="Save"
+    />
+<Button
+    android:id="@+id/abort"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:text="Abort"
+    />
+<TextView
+    android:id="@+id/location"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:text="En chargement..."
+    />
+</LinearLayout>
+
+
