@@ -6,13 +6,13 @@
     android:background="@drawable/background"
     >
   <ImageButton
-      android:src="@drawable/selector"
+      android:src="@drawable/info"
       android:id="@+id/info"
       android:background="@null"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="15px"
-      android:layout_centerHorizontal="true"
+      android:layout_alignParentRight="true"
+      android:padding="5dp"
       android:clickable="true"
       />
   <ImageView
