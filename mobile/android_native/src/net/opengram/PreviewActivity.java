@@ -35,20 +35,18 @@ import android.provider.Settings.Secure;
 
 public class PreviewActivity extends Activity implements OnClickListener, LocationListener
 {
-
-
-    private Button		_save;
-    private Button		_abort;
-    private RelativeLayout	_relative;
-    private EditText		_comment;
-    private TextView		_location;
-    private LocationManager	_lmgr;
-    private Location		_pos;
-    private File _file;
+    private Button          _save;
+    private Button          _abort;
+    private RelativeLayout  _relative;
+    private EditText        _comment;
+    private TextView        _location;
+    private LocationManager _lmgr;
+    private Location        _pos;
+    private File            _file;
 
     private class DownloadTask extends AsyncTask<Void, Void, Void>
     {
-        private ProgressDialog	_dialog;
+        private ProgressDialog _dialog;
 
         @Override
         protected void onPreExecute()
@@ -84,7 +82,8 @@ public class PreviewActivity extends Activity implements OnClickListener, Locati
         protected void onPostExecute(Void v)
         {
             _dialog.hide();
-            PreviewActivity.this.finish();
+            Intent intent = new Intent(PreviewActivity.this, SuccessActivity.class);
+            startActivityForResult(intent, 0x22);
         }
     }
 
@@ -140,6 +139,16 @@ public class PreviewActivity extends Activity implements OnClickListener, Locati
             Log.d("PreviewActivity", "Let's gooo !");
             DownloadTask task = new DownloadTask();
             task.execute();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0x22)
+        {
+            finish();
         }
     }
 
