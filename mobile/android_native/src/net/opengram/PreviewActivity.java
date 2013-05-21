@@ -13,10 +13,7 @@ import android.widget.EditText;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.location.Criteria;
+import android.location.*;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.app.ProgressDialog;
@@ -29,6 +26,7 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.List;
 import android.os.Environment;
 
 import android.provider.Settings.Secure;
@@ -158,6 +156,13 @@ public class PreviewActivity extends Activity implements OnClickListener, Locati
         Log.d("PreviewActivity", "Onlocationchanged");
         _location.setText("Lat:" + location.getLatitude() + " Lng:" + location.getLongitude());
         _pos = location;
+        Geocoder geoCoder = new Geocoder(getBaseContext());
+        try
+        {
+            List<Address> list = geoCoder.getFromLocation(location.getLatitude(), location.getLongitude(), 4);
+            _location.setText(list.get(0).getLocality());
+        }
+        catch (Exception e) {}
         _save.setEnabled(true);
     }
 
