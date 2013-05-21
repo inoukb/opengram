@@ -8,32 +8,44 @@
   <ImageView
       android:src="@drawable/logo"
       android:id="@+id/logo"
+      android:background="@null"
       android:layout_width="200dp"
       android:layout_height="200dp"
       android:layout_alignParentTop="true"
       android:layout_centerHorizontal="true"
       android:layout_marginTop="35px"
       />
+  <ImageView
+      android:src="@drawable/takeapicture"
+      android:id="@+id/takeapic"
+      android:background="@null"
+      android:layout_below="@id/logo"
+      android:layout_width="200dp"
+      android:layout_height="20dp"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="20dp"
+      />
   <ImageButton
       android:src="@drawable/selector"
       android:id="@+id/take"
       android:background="@null"
-      android:layout_below="@id/logo"
+      android:layout_below="@id/takeapic"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="15px"
+      android:layout_marginTop="25dp"
       android:layout_centerHorizontal="true"
       android:clickable="true"
       />
   <TextView
-      android:text="Your text HERE"
+      android:text="Take a pic we'll add it on a map"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
       android:gravity="center"
       android:background="@color/white"
       android:textStyle="bold"
-      android:textColor="#000000"
+      android:textColor="@color/gray"
       android:textSize="18dp"
+      android:padding="20dp"
       />
 </RelativeLayout>

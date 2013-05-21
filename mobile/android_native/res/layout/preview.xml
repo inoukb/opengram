@@ -5,32 +5,47 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
+  <LinearLayout
+      android:id="@+id/buttons"
+      android:orientation="horizontal"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      >
+    <Button
+	android:id="@+id/save"
+	android:enabled="false"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_weight="1"
+	android:text="Save"
+	/>
+    <Button
+	android:id="@+id/abort"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_weight="1"
+	android:text="Abort"
+	/>
+  </LinearLayout>
   <EditText
       android:id="@+id/comment"
+      android:text="OpenGram Roxxx !! your comment here..."
+      android:textSize="12dip"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      />
-  <Button
-      android:id="@+id/save"
-      android:enabled="false"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      android:layout_weight="1"
-      android:text="Save"
-      />
-  <Button
-      android:id="@+id/abort"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      android:layout_toRightOf="@id/save"
-      android:text="Abort"
+      android:layout_above="@id/buttons"
       />
   <TextView
       android:id="@+id/location"
-      android:layout_width="fill_parent"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_above="@id/comment"
+      android:layout_centerHorizontal="true"
+      android:color="@color/white"
+      android:background="@color/blue"
+      android:layout_marginBottom="15dp"
+      android:padding="15dp"
       android:text="En chargement..."
       />
 </RelativeLayout>
