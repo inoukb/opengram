@@ -11,7 +11,7 @@ import android.util.Log;
 import android.provider.MediaStore;
 import android.database.Cursor;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.graphics.drawable.BitmapDrawable;
@@ -38,18 +38,18 @@ import android.provider.Settings.Secure;
 public class PreviewActivity extends Activity implements OnClickListener, LocationListener
 {
 
-    private Button _save;
-    private Button _abort;
-    private LinearLayout _linear;
-    private EditText _comment;
-    private TextView _location;
-    private LocationManager _lmgr;
-    private Uri _uri;
-    private Location _pos;
+    private Button		_save;
+    private Button		_abort;
+    private RelativeLayout	_relative;
+    private EditText		_comment;
+    private TextView		_location;
+    private LocationManager	_lmgr;
+    private Uri			_uri;
+    private Location		_pos;
 
     private class DownloadTask extends AsyncTask<Void, Void, Void>
     {
-        ProgressDialog _dialog;
+        private ProgressDialog	_dialog;
 
         @Override
         protected void onPreExecute()
@@ -112,10 +112,9 @@ public class PreviewActivity extends Activity implements OnClickListener, Locati
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.preview);
 
-        _linear = (LinearLayout) findViewById(R.id.linear);
+        _relative = (RelativeLayout) findViewById(R.id.relative);
         _location = (TextView) findViewById(R.id.location);
         _comment = (EditText) findViewById(R.id.comment);
         _save = (Button) findViewById(R.id.save);

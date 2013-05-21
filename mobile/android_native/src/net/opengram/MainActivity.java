@@ -2,8 +2,10 @@ package net.opengram;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.view.View;
+import android.widget.TextView;
 import android.view.View.OnClickListener;
 import android.content.Intent;
 import android.util.Log;
@@ -12,23 +14,26 @@ import android.net.Uri;
 public class MainActivity extends Activity implements OnClickListener
 {
     private static int TAKE_PICTURE = 0x10;
-
-    private Button _takePicture;
+    private ImageButton	_takePicture;
+    private ImageView	_logo;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        _takePicture = (Button)findViewById(R.id.take_picture);
+	_logo = (ImageView)findViewById(R.id.logo);
+        _takePicture = (ImageButton)findViewById(R.id.take);
         _takePicture.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View button)
-    {
+    {	_logo.getDrawable().clearColorFilter();
+	_takePicture.getDrawable().clearColorFilter();
         if (button == _takePicture)
         {
+	    button.setBackgroundResource(R.drawable.take_press);
             Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
             startActivityForResult(intent, TAKE_PICTURE);
             Log.d("MainActivity", "Go on Camera !");
@@ -54,4 +59,3 @@ public class MainActivity extends Activity implements OnClickListener
         }
     }
 }
-
