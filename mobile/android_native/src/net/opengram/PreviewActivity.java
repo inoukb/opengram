@@ -121,7 +121,9 @@ public class PreviewActivity extends Activity implements OnClickListener, Locati
             FileOutputStream fos = new FileOutputStream(_file);
             fos.write(b);
         }
-        catch (Exception e) {}
+        catch (Exception e) {
+            Log.d("PreviewActivity", "I can't write the file");
+        }
     }
 
     @Override
