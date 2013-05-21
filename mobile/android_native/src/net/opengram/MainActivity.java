@@ -9,7 +9,8 @@ import android.widget.TextView;
 import android.view.View.OnClickListener;
 import android.content.Intent;
 import android.util.Log;
-import android.net.Uri;
+import android.graphics.Bitmap;
+import java.io.ByteArrayOutputStream;
 
 public class MainActivity extends Activity implements OnClickListener
 {
@@ -49,9 +50,13 @@ public class MainActivity extends Activity implements OnClickListener
             if (resultCode == RESULT_OK)
             {
                 Log.d("MainActivity", "Tu as pris une photo et c'est sur !");
-                Uri uri = data.getData();
+                Bitmap image = (Bitmap) data.getExtras().get("data");
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                image.compress(Bitmap.CompressFormat.JPEG, 100, baos); 
+                byte[] b = baos.toByteArray();
+
                 Intent intent = new Intent(MainActivity.this, PreviewActivity.class);
-                intent.putExtra("uri", uri);
+                intent.putExtra("picture", b);
                 startActivity(intent);
             }
             else

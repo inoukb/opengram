@@ -3,13 +3,9 @@ package net.opengram;
 import android.app.Activity;
 import android.os.Bundle;
 import android.content.Intent;
-import android.net.Uri;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.util.Log;
-import android.provider.MediaStore;
-import android.database.Cursor;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,11 +28,14 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import java.io.File;
+import java.io.FileOutputStream;
+import android.os.Environment;
 
 import android.provider.Settings.Secure;
 
 public class PreviewActivity extends Activity implements OnClickListener, LocationListener
 {
+
 
     private Button		_save;
     private Button		_abort;
@@ -44,8 +43,8 @@ public class PreviewActivity extends Activity implements OnClickListener, Locati
     private EditText		_comment;
     private TextView		_location;
     private LocationManager	_lmgr;
-    private Uri			_uri;
     private Location		_pos;
+    private File _file;
 
     private class DownloadTask extends AsyncTask<Void, Void, Void>
     {
@@ -64,7 +63,6 @@ public class PreviewActivity extends Activity implements OnClickListener, Locati
         protected Void doInBackground(Void ...v)
         {
             DefaultHttpClient client = new DefaultHttpClient();
-            //HttpPost post = new HttpPost("http://opengram.appspot.com/receive");
             HttpPost post = new HttpPost("http://mystartupweekend.nsxdesign.fr/receive.php");
             MultipartEntity entity = new MultipartEntity();
 
@@ -74,13 +72,11 @@ public class PreviewActivity extends Activity implements OnClickListener, Locati
                 entity.addPart("datetime", new StringBody("" + Calendar.getInstance().getTimeInMillis()));
                 entity.addPart("phone_id", new StringBody(Secure.getString(PreviewActivity.this.getContentResolver(), Secure.ANDROID_ID)));
                 entity.addPart("comment", new StringBody(_comment.getText().toString()));
-                entity.addPart("file", new FileBody(new File(getRealPathFromURI(_uri)), "image/jpeg"));
+                entity.addPart("file", new FileBody(_file));
                 post.setEntity(entity);
                 HttpResponse response = client.execute(post);
             }
-            catch (Exception e)
-            {
-            }
+            catch (Exception e) {}
             return null;
         }
 
@@ -89,22 +85,6 @@ public class PreviewActivity extends Activity implements OnClickListener, Locati
         {
             _dialog.hide();
             PreviewActivity.this.finish();
-        }
-    }
-
-    public String getRealPathFromURI(Uri contentUri)
-    {
-        try
-        {
-            String[] proj = { MediaStore.Images.Media.DATA };
-            Cursor cursor = managedQuery(contentUri, proj, null, null, null);
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            return cursor.getString(column_index);
-        }
-        catch (Exception e)
-        {
-            return contentUri.getPath();
         }
     }
 
@@ -131,17 +111,20 @@ public class PreviewActivity extends Activity implements OnClickListener, Locati
         _lmgr.requestLocationUpdates(provider, 200, 0, this);
         Location location = _lmgr.getLastKnownLocation(provider);
         Log.d("PreviewActivity", provider);
-        if (_lmgr.isProviderEnabled(provider))
+        byte[] b = getIntent().getExtras().getByteArray("picture");
+        Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
+        BitmapDrawable d = new BitmapDrawable(bmp);
+        _relative.setBackgroundDrawable(d);
+        _file = new File(
+            Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES
+            ), "Opengram");
+        try
         {
-            Log.d("PreviewActivity", "The provider is disabled");
+            FileOutputStream fos = new FileOutputStream(_file);
+            fos.write(b);
         }
-        if (location != null)
-            Log.d("PreviewActivity", "" + location.getLatitude());
-
-        _uri = getIntent().getParcelableExtra("uri");
-        //Log.d("PreviewActivity", getRealPathFromURI(uri));
-        //BitmapDrawable d = new BitmapDrawable(getRealPathFromURI(uri));
-        //_linear.setBackgroundDrawable(d);
+        catch (Exception e) {}
     }
 
     @Override
