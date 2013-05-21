@@ -13,10 +13,7 @@ import android.widget.EditText;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.location.Criteria;
+import android.location.*;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.app.ProgressDialog;
@@ -29,26 +26,25 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.List;
 import android.os.Environment;
 
 import android.provider.Settings.Secure;
 
 public class PreviewActivity extends Activity implements OnClickListener, LocationListener
 {
-
-
-    private Button		_save;
-    private Button		_abort;
-    private RelativeLayout	_relative;
-    private EditText		_comment;
-    private TextView		_location;
-    private LocationManager	_lmgr;
-    private Location		_pos;
-    private File _file;
+    private Button          _save;
+    private Button          _abort;
+    private RelativeLayout  _relative;
+    private EditText        _comment;
+    private TextView        _location;
+    private LocationManager _lmgr;
+    private Location        _pos;
+    private File            _file;
 
     private class DownloadTask extends AsyncTask<Void, Void, Void>
     {
-        private ProgressDialog	_dialog;
+        private ProgressDialog _dialog;
 
         @Override
         protected void onPreExecute()
@@ -84,7 +80,8 @@ public class PreviewActivity extends Activity implements OnClickListener, Locati
         protected void onPostExecute(Void v)
         {
             _dialog.hide();
-            PreviewActivity.this.finish();
+            Intent intent = new Intent(PreviewActivity.this, SuccessActivity.class);
+            startActivityForResult(intent, 0x22);
         }
     }
 
@@ -144,11 +141,28 @@ public class PreviewActivity extends Activity implements OnClickListener, Locati
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0x22)
+        {
+            finish();
+        }
+    }
+
+    @Override
     public void onLocationChanged(Location location)
     {
         Log.d("PreviewActivity", "Onlocationchanged");
         _location.setText("Lat:" + location.getLatitude() + " Lng:" + location.getLongitude());
         _pos = location;
+        Geocoder geoCoder = new Geocoder(getBaseContext());
+        try
+        {
+            List<Address> list = geoCoder.getFromLocation(location.getLatitude(), location.getLongitude(), 4);
+            _location.setText(list.get(0).getLocality());
+        }
+        catch (Exception e) {}
         _save.setEnabled(true);
     }
 

@@ -15,29 +15,35 @@ import java.io.ByteArrayOutputStream;
 public class MainActivity extends Activity implements OnClickListener
 {
     private static int TAKE_PICTURE = 0x10;
-    private ImageButton	_takePicture;
-    private ImageView	_logo;
+
+    private ImageButton _takeButton;
+    private ImageButton _infoButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-	_logo = (ImageView)findViewById(R.id.logo);
-        _takePicture = (ImageButton)findViewById(R.id.take);
-        _takePicture.setOnClickListener(this);
+        _takeButton = (ImageButton)findViewById(R.id.take);
+        _takeButton.setOnClickListener(this);
+        _infoButton = (ImageButton)findViewById(R.id.info);
+        _infoButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View button)
-    {	_logo.getDrawable().clearColorFilter();
-	_takePicture.getDrawable().clearColorFilter();
-        if (button == _takePicture)
+    {
+        if (button == _takeButton)
         {
-	    button.setBackgroundResource(R.drawable.take_press);
+            Log.d("MainActivity", "Go on Camera !");
             Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
             startActivityForResult(intent, TAKE_PICTURE);
-            Log.d("MainActivity", "Go on Camera !");
+        }
+        else if (button == _infoButton)
+        {
+            Log.d("MainActivity", "Go on InfoActivity !");
+            Intent intent = new Intent(this, InfoActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -49,10 +55,10 @@ public class MainActivity extends Activity implements OnClickListener
         {
             if (resultCode == RESULT_OK)
             {
-                Log.d("MainActivity", "Tu as pris une photo et c'est sur !");
+                Log.d("MainActivity", "U have take a picture !");
                 Bitmap image = (Bitmap) data.getExtras().get("data");
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                image.compress(Bitmap.CompressFormat.JPEG, 100, baos); 
+                image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 byte[] b = baos.toByteArray();
 
                 Intent intent = new Intent(MainActivity.this, PreviewActivity.class);
@@ -60,7 +66,7 @@ public class MainActivity extends Activity implements OnClickListener
                 startActivity(intent);
             }
             else
-                Log.d("MainActivity", "Tu n'as pris une photo !");
+                Log.d("MainActivity", "U don't have a picture");
         }
     }
 }
