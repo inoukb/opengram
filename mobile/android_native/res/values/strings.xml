@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">Opengram</string>
     <string name="take_picture">Click here !</string>
+    <string name="link">http://inoukb.github.io/opengram/demo/</string>
 </resources>

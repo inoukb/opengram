@@ -23,7 +23,7 @@
       android:layout_height="200dp"
       android:layout_alignParentTop="true"
       android:layout_centerHorizontal="true"
-      android:layout_marginTop="35px"
+      android:layout_marginTop="40dp"
       />
   <ImageView
       android:src="@drawable/takeapicture"

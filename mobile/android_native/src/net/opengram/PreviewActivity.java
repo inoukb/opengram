@@ -79,7 +79,7 @@ public class PreviewActivity extends Activity implements OnClickListener, Locati
         @Override
         protected void onPostExecute(Void v)
         {
-            _dialog.hide();
+            _dialog.cancel();
             Intent intent = new Intent(PreviewActivity.this, SuccessActivity.class);
             startActivityForResult(intent, 0x22);
         }
