@@ -11,6 +11,7 @@
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
+      android:layout_marginTop="15dp"
       >
     <Button
 	android:id="@+id/save"
@@ -28,23 +29,47 @@
 	android:text="Abort"
 	/>
   </LinearLayout>
-  <EditText
-      android:id="@+id/comment"
-      android:text="OpenGram Roxxx !! your comment here..."
-      android:textSize="12dip"
-      android:lines="2"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_above="@id/buttons"
-      />
+  <RelativeLayout
+        android:id="@+id/relative2"
+        android:layout_width="fill_parent"
+        android:layout_height="36dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/rounded_textview"
+        android:paddingLeft="5dp"
+	android:layout_above="@id/buttons"
+	>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:text="Opengram Roxxx !!! " />
+
+        <EditText
+            android:id="@+id/comment"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="135dp"
+            android:layout_marginRight="25dp"
+            android:background="@android:color/transparent"
+            android:hint="Your comment here..."
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:textColor="@color/black"
+	    android:textSize="14dp"
+	    />
+  </RelativeLayout>
   <TextView
       android:id="@+id/location"
+      android:background="@color/blue"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_above="@id/comment"
+      android:layout_above="@id/relative2"
       android:layout_centerHorizontal="true"
       android:textColor="@color/white"
-      android:background="@color/blue"
       android:layout_marginBottom="15dp"
       android:padding="15dp"
       android:text="En chargement..."

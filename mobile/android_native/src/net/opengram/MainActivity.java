@@ -11,8 +11,12 @@ import android.content.Intent;
 import android.util.Log;
 import android.graphics.Bitmap;
 import java.io.ByteArrayOutputStream;
+import android.content.SharedPreferences;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 
-public class MainActivity extends Activity implements OnClickListener
+public class MainActivity extends Activity implements OnClickListener, DialogInterface.OnClickListener
 {
     private static int TAKE_PICTURE = 0x10;
 
@@ -23,7 +27,17 @@ public class MainActivity extends Activity implements OnClickListener
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+	setContentView(R.layout.main);
+	
+	boolean firstrun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("firstrun", true);
+	if (firstrun) {
+	    new AlertDialog.Builder(this)
+		.setTitle("Terms and Conditions")
+		.setMessage("Lorem ipsum dolor sit amet, consectetur adipiscing elit.Pellentesque mauris ante, rhoncus eget venenatis volutpat, lacinia a magna. Mauris quis purus sit amet dui lacinia placerat non id est. Nam accumsan elementum nulla, non pulvinar leo posuere et. Praesent non nunc orci. Nulla facilisi. Vestibulum porttitor, ipsum rutrum posuere lobortis, elit velit molestie elit, sodales feugiat tellus augue at felis. Cras rhoncus vestibulum quam et elementum. Proin varius leo ac purus ullamcorper tincidunt. Donec elit neque, pellentesque non accumsan non, pharetra et neque.")
+		.setNeutralButton("OK", this)
+		.setCancelable(false)
+		.show();
+	}
         _takeButton = (ImageButton)findViewById(R.id.take);
         _takeButton.setOnClickListener(this);
         _infoButton = (ImageButton)findViewById(R.id.info);
@@ -40,11 +54,20 @@ public class MainActivity extends Activity implements OnClickListener
             startActivityForResult(intent, TAKE_PICTURE);
         }
         else if (button == _infoButton)
-        {
-            Log.d("MainActivity", "Go on InfoActivity !");
+	{
+	    Log.d("MainActivity", "Go on InfoActivity !");
             Intent intent = new Intent(this, InfoActivity.class);
             startActivity(intent);
         }
+    }
+
+    public void onClick(DialogInterface dialog, int which)
+    {
+	Log.d("MainActivity", "Terms Accepted !");
+		getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+		    .edit()
+		    .putBoolean("firstrun", false)
+		    .commit();
     }
 
     @Override

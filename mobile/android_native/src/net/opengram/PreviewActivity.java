@@ -162,7 +162,7 @@ public class PreviewActivity extends Activity implements OnClickListener, Locati
         try
         {
             List<Address> list = geoCoder.getFromLocation(location.getLatitude(), location.getLongitude(), 4);
-            _location.setText(list.get(0).getLocality());
+            _location.setText("From " + list.get(0).getLocality());
         }
         catch (Exception e) {}
         _save.setEnabled(true);
