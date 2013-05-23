@@ -51,7 +51,7 @@ public class PreviewActivity extends Activity implements OnClickListener, Locati
         {
             _dialog = new ProgressDialog(PreviewActivity.this);
             _dialog.setCanceledOnTouchOutside(false);
-            _dialog.setMessage("Envoi en cours...");
+            _dialog.setMessage(getString(R.string.sending));
             _dialog.show();
         }
 
@@ -59,7 +59,7 @@ public class PreviewActivity extends Activity implements OnClickListener, Locati
         protected Void doInBackground(Void ...v)
         {
             DefaultHttpClient client = new DefaultHttpClient();
-            HttpPost post = new HttpPost("http://mystartupweekend.nsxdesign.fr/receive.php");
+            HttpPost post = new HttpPost(getString(R.string.receive));
             MultipartEntity entity = new MultipartEntity();
 
             try

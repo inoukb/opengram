@@ -16,7 +16,7 @@
       />
   <Button
       android:id="@+id/map"
-      android:text="see it on the map"
+      android:text="@string/button_msg"
       android:textColor="@color/gray"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -27,8 +27,8 @@
       android:padding="10dp"
       />
   <TextView
-      android:id="@+id/url"
-      android:text="Or follow this link:\n"
+      android:id="@+id/link_map"
+      android:text="@string/link_map"
       android:textColor="@color/gray"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
@@ -38,7 +38,18 @@
       android:gravity="center"
       />
   <TextView
-      android:text="Opengram, 2013."
+      android:id="@+id/url"
+      android:text="@string/url"
+      android:textColor="@color/gray"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/link_map"
+      android:layout_marginTop="15dp"
+      android:layout_marginLeft="10dp"
+      android:gravity="center"
+      />
+  <TextView
+      android:text="@string/opengram"
       android:textColor="@color/gray"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"

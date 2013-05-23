@@ -32,8 +32,8 @@ public class MainActivity extends Activity implements OnClickListener, DialogInt
 	boolean firstrun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("firstrun", true);
 	if (firstrun) {
 	    new AlertDialog.Builder(this)
-		.setTitle("Terms and Conditions")
-		.setMessage("Lorem ipsum dolor sit amet, consectetur adipiscing elit.Pellentesque mauris ante, rhoncus eget venenatis volutpat, lacinia a magna. Mauris quis purus sit amet dui lacinia placerat non id est. Nam accumsan elementum nulla, non pulvinar leo posuere et. Praesent non nunc orci. Nulla facilisi. Vestibulum porttitor, ipsum rutrum posuere lobortis, elit velit molestie elit, sodales feugiat tellus augue at felis. Cras rhoncus vestibulum quam et elementum. Proin varius leo ac purus ullamcorper tincidunt. Donec elit neque, pellentesque non accumsan non, pharetra et neque.")
+		.setTitle(getString(R.string.terms_title))
+		.setMessage(getString(R.string.terms_desc))
 		.setNeutralButton("OK", this)
 		.setCancelable(false)
 		.show();

@@ -47,7 +47,7 @@
       android:clickable="true"
       />
   <TextView
-      android:text="Take a pic we'll add it on a map"
+      android:text="@string/slogan"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
