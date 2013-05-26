@@ -41,26 +41,27 @@
         width:41px;
         height:27px;
         background-image: url('ressources/shadow-small.png');
+        /*background:red;*/
       }
 
       .gram-marker-photo{
         border:solid 3px #fff;
+
       }
 
-
-      .gram-marker.small  .gram-marker-photo{
-        /*height:28px;
-        width:30px;*/
+      .gram-marker-photo img{
+        max-height:150px;
+      }
+      .gram-marker.small  .gram-marker-photo img{
+        max-height:28px;
+        max-width:45px;
+        /*width:30px;*/
       }
       .gram-marker.small  .gram-marker-label{
         display:none;
         background: #fff;
       }
       
-      .gram-marker.small  .gram-marker-tick{
-    		/*top: 21px;
-    		left: 30%;*/
-      }
 
       
 
@@ -68,10 +69,12 @@
       .gram-marker.drop-anim{
         -webkit-animation: drop-anim-key 600ms linear;
         -moz-animation: drop-anim-key 600ms linear;
+        animation: drop-anim-key 600ms linear;
       }
       .gram-marker-shadow.drop-anim{
         -webkit-animation: drop-anim-shadow-key 600ms linear;
         -moz-animation: drop-anim-shadow-key 600ms linear;
+        animation: drop-anim-shadow-key 600ms linear;
       }
       .gram-marker.hover.small{
         -webkit-transform-origin-x:center;
@@ -79,15 +82,22 @@
         -webkit-animation: tremble-anim-key 600ms linear;
         -moz-transform-origin-x:center;
         -moz-transform-origin-y:130%;
+        -moz-transform-origin:center 130%;
         -moz-animation: tremble-anim-key 600ms linear;
+        transform-origin-x:center;
+        transform-origin-y:130%;
+        animation: tremble-anim-key 600ms linear;
       }
       .gram-marker-shadow.hover{
         -webkit-transform-origin-x:8px;
         -webkit-transform-origin-y:30px;
         -webkit-animation: tremble-anim-shadow-key 600ms linear;
-         -moz-transform-origin-x:8px;
+        -moz-transform-origin-x:8px;
         -moz-transform-origin-y:30px;
         -moz-animation: tremble-anim-shadow-key 600ms linear;
+        transform-origin-x:8px;
+        transform-origin-y:30px;
+        animation: tremble-anim-shadow-key 600ms linear;
       }
       @-webkit-keyframes drop-anim-shadow-key
       {
@@ -126,6 +136,7 @@
 
       }
 
+
       @-moz-keyframes drop-anim-shadow-key
       {
         0%   {-moz-transform: translate(0,-20px)  scale(0.2); }
@@ -160,6 +171,43 @@
         40%   {-moz-transform: rotate(-0deg); }
         80%   {-moz-transform: rotate(2deg); }
         90%   {-moz-transform: rotate(0deg); }
+      }
+
+
+      @keyframes drop-anim-shadow-key
+      {
+        0%   {transform: translate(0,-20px)  scale(0.2); }
+        45%  {transform: translate(0,0px)  scale(1); }
+        60%  {transform: translate(0,-5px)  scale(0.1); }
+        80%  {transform: translate(0,0px)  scale(1); }
+        90%  {transform: translate(0,-3px)  scale(0.1); }
+        100%  {transform: translate(0,0px) scale(1);  }
+      }
+      @keyframes drop-anim-key
+      {
+        0%   {transform: translate(0,-90px)  scale(0.2); }
+        45%  {transform: translate(0,0px)  scale(1); }
+        60%  {transform: translate(0,-20px)   }
+        80%  {transform: translate(0,0px)   }
+        90%  {transform: translate(0,-5px)   }
+        100%  {transform: translate(0,0px)   }
+      }
+      
+      @keyframes tremble-anim-key
+      {
+        0%   {transform: rotate(0); }
+        20%   {transform: rotate(10deg); }
+        40%   {transform: rotate(-10deg); }
+        80%   {transform: rotate(10deg); }
+        90%   {transform: rotate(0deg); }
+      }
+      @keyframes tremble-anim-shadow-key
+      {
+        0%   {transform: rotate(0); }
+        20%   {transform: rotate(2deg); }
+        40%   {transform: rotate(-0deg); }
+        80%   {transform: rotate(2deg); }
+        90%   {transform: rotate(0deg); }
 
       }
 

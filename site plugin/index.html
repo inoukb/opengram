@@ -19,6 +19,7 @@
         color:#d61c60;
         text-shadow: 1px 2px 3px rgba(50 , 50, 50, 0.5);
         font-family: 'Oleo Script Swash Caps' , calibri, Arial;
+        pointer-events: none;
       }
        #header2{
         font-style: italic;
@@ -30,6 +31,14 @@
         color:#333;
         text-shadow: 1px 2px 3px rgba(250 , 250, 250, 0.9);
         font-family: 'Oleo Script Swash Caps' , calibri, Arial;
+        pointer-events: none;
+      }
+
+      .gram-marker-label{
+        color:#333;
+        text-shadow: 1px 2px 3px rgba(120 , 120, 120, 0.9);
+        font-family: 'Oleo Script Swash Caps' , calibri, Arial;
+        text-align: center;
       }
 
       #footer{
@@ -125,7 +134,7 @@
     Bon appétit!
 	</div>
   <div id="header2">
-    Comme eux, partagez vos meilleurs réalisations culinaires
+    Comme eux, partagez vos meilleures réalisations culinaires
   </div>
 
   <div id="gram-map"></div>
@@ -151,7 +160,7 @@
 		window.onload=function(){
 			
 			var gl=new GramListener({
-        maxElement:300,
+        maxElement:80,
         //url:'http://opengram.appspot.com'
         fakeImages:[
           "http://farm6.staticflickr.com/5101/5570907915_cc756b843f.jpg",
@@ -177,7 +186,7 @@
 			var c=$('#gram-map')
 			.gramMap({
 				'gramListener':gl,
-        maxElement:150,
+        maxElement:50,
 			});
 
       var c=$('#gram-list')
