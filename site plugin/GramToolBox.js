@@ -157,7 +157,7 @@ GramListener.prototype={
 			window.setTimeout( 
 				$.proxy(generateFakeElement,this) , 
 				this.elements.length < this.maxElement*0.5 ? 		// is the store already well filled
-				300 : 												// nop, get another element soon
+				10 : 												// nop, get another element soon
 				Math.floor( Math.random() * 5000 + 1000 )			// yes, get another element in few seconds
 			);
 		};
@@ -250,17 +250,19 @@ GramListener.prototype={
 
 	var googleApiKey="AIzaSyBMU_Uuqf8WevUvNoRw3hONVjr8K_q5aIw";
 
-	var GramMarker;		
+	var GramMarker;
+
+	var canvasEnable=!true;
 
 
 	var initGoogleMapsElements=function(){ //because we need the google api set up, delay this
 		var markerTemplate=[
 		'<div class="gram-marker small">',
 			'<div>',
-				'<img class="gram-marker-photo"></img>', 
+				'<div class="gram-marker-photo"></div>', 
 				'<div class="gram-marker-label"></div>',
 			'</div>',
-			'<div class="gram-marker-tick"></div>',
+			'<div class="gram-marker-tic"></div>',
 		'</div>',
 		].join("");
 
@@ -280,6 +282,8 @@ GramListener.prototype={
 
 		isfocus:null,			// true if the element is large
 
+		image:null,				// buffer
+
 		latlng:null,
 
 		_keylistener:null,		// an object passed in param to remove an event
@@ -289,6 +293,10 @@ GramListener.prototype={
 			this.gramElement=gramElement;
 
 			this.$el=$( markerTemplate );
+
+			this.image=$("<img>")
+			.css("display","none")
+			.appendTo( $("body") );
 
 			this.render();
 
@@ -337,17 +345,30 @@ GramListener.prototype={
 
   			this.$shadow
   			.appendTo( $( panes.overlayShadow ) );
-
 		},
 
 		focus:function(){
 			
+			// dimension of the thumbnail
+			var th_w=50*3,
+				th_h=38*3;
+
 			this.isfocus=true;
 
 			this.$el.removeClass("small");
 			
-			this.draw();
+			
 
+			if(canvasEnable){
+				this.$el.find(".gram-marker-photo")
+				.empty()
+			}else{
+				this.$el.find('.gram-marker-photo img')
+				.css({ 'width' : th_w+"px" , 'height' : th_h+"px" })
+				.attr( "width" , th_w ).attr( "height" , th_h )
+			}
+
+			this.draw();
 
 			// listen to a click outside the box
 			// lose the focus when this happend
@@ -355,7 +376,6 @@ GramListener.prototype={
 				this.unfocus();
 				e.stop();
 			},this));
-
 		},
 
 		unfocus:function(){
@@ -368,7 +388,6 @@ GramListener.prototype={
 
 			// remove the listener
 			google.maps.event.removeListener( this.keylistener );
-
 		},
 
 		animDrop:function(){
@@ -382,8 +401,52 @@ GramListener.prototype={
 
 		render:function(){
 
-			this.$el.find('img.gram-marker-photo')
-			.attr('src',this.gramElement.imageUrl );
+			// dimension of the thumbnail
+			var th_w=50,
+				th_h=38;
+
+
+			if(canvasEnable){
+				// load the buffer image
+				this.image
+				.on("load",$.proxy(function(){
+
+					// cache the reduced thumbnail
+					var $canvas=$("<canvas>")
+					.css({ 'width' : th_w+"px" , 'height' : th_h+"px" })
+					.attr( "width" , th_w ).attr( "height" , th_h );
+
+					var ctx=$canvas.get(0).getContext("2d");
+
+					ctx.drawImage( this.image.get(0) ,   0 , 0 , th_w , th_h   );
+
+					this.$el.find('.gram-marker-photo')
+					.empty()
+					.append( $canvas );
+					/*
+					$("body")
+					.append( $canvas );
+					*/
+
+				},this))
+				.attr("src" , this.gramElement.imageUrl )
+				
+			}else{
+
+				var $img=$("<img>")
+				.css({ 'width' : th_w+"px" , 'height' : th_h+"px" })
+				.attr( "width" , th_w ).attr( "height" , th_h )
+				.attr( "src" , this.gramElement.imageUrl );
+
+
+				this.$el.find('.gram-marker-photo')
+				.empty()
+				.append( $img );
+
+				this.image
+				.attr("src" , this.gramElement.imageUrl )
+			}
+
 
 			this.$el.find('.gram-marker-label')
 			.text( this.gramElement.title );
@@ -402,7 +465,7 @@ GramListener.prototype={
   			var z=Math.floor( p.y );
 
  			p.x-=w/2;
- 			p.y+=-h+4;
+ 			p.y+=-h+14;
 
 			
   			this.$el.css({ 
@@ -410,11 +473,6 @@ GramListener.prototype={
 				'left': p.x+"px",
 				'z-index':z
 			})
-
-			this.$el.find('.gram-marker-tick').css({ 
-				'left': (w/2-6)+"px",
-			})
-
 			this.$eventLayer.css({ 
 				'width':  w+"px",
 				'height': h+"px",
@@ -422,12 +480,10 @@ GramListener.prototype={
 				'left':   p.x+"px",
 				'z-index':z
 			})
-
 			this.$shadow.css({ 
-				'top':  (p.y+10)+"px" ,
+				'top':  (p.y+38)+"px" ,
 				'left': (p.x+w/2-5)+"px",
 			})
-			
 		},
 
 		onRemove : function() {
@@ -436,6 +492,7 @@ GramListener.prototype={
 		  this.$el.detach();
 		  this.$eventLayer.detach();
 		  this.$shadow.detach();
+		  this.image.remove();
 		},
 	});
 	};

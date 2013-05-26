@@ -94,7 +94,30 @@
         border : solid 5px #fff;
         box-shadow: 2px 3px 5px 3px #333;
       }
-      
+
+
+      .gram-list-element img:before{
+        content: '';
+        display: inline-block;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-bottom: 7px solid #ccc;
+        border-bottom-color: rgba(0, 0, 0, 0.2);
+        position: absolute;
+        top: -7px;
+        left: 6px;
+      }
+
+      .gram-list-element img:after{
+        content: '';
+        display: inline-block;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 6px solid blue;
+        position: absolute;
+        top: -6px;
+        left: 7px;
+      }    
 
     </style>
 
@@ -121,13 +144,14 @@
 
 	<script type="text/javascript" src="jQuery/jquery.js"></script>
   <script type="text/javascript" src="GramToolBox.js"></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMU_Uuqf8WevUvNoRw3hONVjr8K_q5aIw&sensor=true" data-loaded="true" ></script>-
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMU_Uuqf8WevUvNoRw3hONVjr8K_q5aIw&sensor=true" data-loaded="true" ></script>
+
 	<script type="text/javascript">
 
 		window.onload=function(){
 			
 			var gl=new GramListener({
-        maxElement:20,
+        maxElement:300,
         //url:'http://opengram.appspot.com'
         fakeImages:[
           "http://farm6.staticflickr.com/5101/5570907915_cc756b843f.jpg",
@@ -153,13 +177,13 @@
 			var c=$('#gram-map')
 			.gramMap({
 				'gramListener':gl,
-        maxElement:15,
+        maxElement:150,
 			});
 
       var c=$('#gram-list')
       .gramList({
         'gramListener':gl,
-        'maxElement':18,
+        'maxElement':8,
       });
       
       

@@ -2,15 +2,36 @@
       .gram-marker{
         position:absolute;
         background:#fff;
+        border: solid 1px #ccc;
       }
-      .gram-marker-photo{
-        background:orange;
-        border:solid 3px #fff;
-        margin-left:auto;
+
+      .gram-marker-tic{
+        background: red;
+        width:24px;
+        height:0px;
         margin-right: auto;
-        height:100px;
-        min-width:100px;
+        margin-left: auto;
+
       }
+      .gram-marker-tic:after{
+        content: '';
+        display: block;
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        border-top: 14px solid #fff;
+        position: relative;
+        top:-15px;
+      }
+      .gram-marker-tic:before{
+        content: '';
+        display: block;
+        border-left: 13px solid transparent;
+        border-right: 13px solid transparent;
+        border-top: 15px solid #ccc;
+        position: relative;
+        left:-1px;
+      }    
+
       .gram-marker-label{
         height:35px;
         z-index: 2;
@@ -21,23 +42,15 @@
         height:27px;
         background-image: url('ressources/shadow-small.png');
       }
-      .gram-marker-tick{ /* the arrow down the marker, is actually a rect div 45deg rotated */
-        -webkit-transform: rotate(45deg);
-        -moz-transform: rotate(45deg);
-        width: 10px;
-        height: 10px;
-        background: #fff;
-        position: absolute;
-        top: 136px;
-        z-index: -2;
-        left: 48%;
+
+      .gram-marker-photo{
+        border:solid 3px #fff;
       }
 
 
-
       .gram-marker.small  .gram-marker-photo{
-        height:20px;
-        min-width:20px;
+        /*height:28px;
+        width:30px;*/
       }
       .gram-marker.small  .gram-marker-label{
         display:none;
@@ -45,8 +58,8 @@
       }
       
       .gram-marker.small  .gram-marker-tick{
-    		top: 21px;
-    		left: 30%;
+    		/*top: 21px;
+    		left: 30%;*/
       }
 
       
@@ -62,10 +75,10 @@
       }
       .gram-marker.hover.small{
         -webkit-transform-origin-x:center;
-        -webkit-transform-origin-y:30px;
+        -webkit-transform-origin-y:130%;
         -webkit-animation: tremble-anim-key 600ms linear;
         -moz-transform-origin-x:center;
-        -moz-transform-origin-y:30px;
+        -moz-transform-origin-y:130%;
         -moz-animation: tremble-anim-key 600ms linear;
       }
       .gram-marker-shadow.hover{
@@ -87,8 +100,8 @@
       }
       @-webkit-keyframes drop-anim-key
       {
-        0%   {-webkit-transform: translate(0,-90px)  scale(0.2); }
-        45%  {-webkit-transform: translate(0,0px)  scale(1); }
+        0%   {-webkit-transform: translate(0,-90px)  }
+        45%  {-webkit-transform: translate(0,0px)  }
         60%  {-webkit-transform: translate(0,-20px)   }
         80%  {-webkit-transform: translate(0,0px)   }
         90%  {-webkit-transform: translate(0,-5px)   }
@@ -106,9 +119,9 @@
       @-webkit-keyframes tremble-anim-shadow-key
       {
         0%   {-webkit-transform: rotate(0); }
-        20%   {-webkit-transform: rotate(2deg); }
+        20%   {-webkit-transform: rotate(5deg); }
         40%   {-webkit-transform: rotate(-0deg); }
-        80%   {-webkit-transform: rotate(2deg); }
+        80%   {-webkit-transform: rotate(5deg); }
         90%   {-webkit-transform: rotate(0deg); }
 
       }
